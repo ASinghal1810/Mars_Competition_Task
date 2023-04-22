@@ -24,15 +24,10 @@ namespace Mars_Competition_Task.Test
 
             [Test, Order(1)]
             public void ShareSkillAddition()
-            {
-                StartWebsite();
-                loginPageObj.LoginSteps();
+            {         
                 homePageObj.ShareSkillButton();
-                
-
-
-
             }
+
             [TearDown]
             public void CloseTestRun()
             {

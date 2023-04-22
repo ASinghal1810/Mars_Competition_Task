@@ -10,14 +10,38 @@ namespace Mars_Competition_Task.Pages
 {
     public class LoginPage : MarsDriver
     {
-        public void LoginSteps() 
-        {
-            driver.FindElement(By.XPath("//*[@class=\"right item\"]/a")).Click();
-            driver.FindElement(By.Name("email")).Click();
-            driver.FindElement(By.Name("email")).SendKeys("ankursinghal9118@gmail.com");
-            driver.FindElement(By.Name("password")).Click();
-            driver.FindElement(By.Name("password")).SendKeys("Singhal&18");
-            driver.FindElement(By.XPath("//*[@class=\"ui large form  \" and @autocomplete=\"on\"]/div[4]/button")).Click(); 
+        
+
+        private IWebElement signInButton => driver.FindElement(By.XPath("//*[@id=\"home\"]/div/div/div[1]/div/a"));
+        private IWebElement email => driver.FindElement(By.Name("email"));
+        private IWebElement passowrd => driver.FindElement(By.Name("password"));
+        private IWebElement loginButton => driver.FindElement(By.XPath("//*[@class=\"ui large form  \" and @autocomplete=\"on\"]/div[4]/button"));
+        
+        
+            public void SignInButton()
+            {
+                //signInButton = driver.FindElement(By.XPath("//*[@id=\"home\"]/div/div/div[1]/div/a"));
+                signInButton.Click();
+
+            }
+            public void Email()
+            {
+
+                email.Click();
+                email.SendKeys("ankursinghal9118@gmail.com");
+
+            }
+            public void Password()
+            {
+
+                passowrd.Click();
+                passowrd.SendKeys("Singhal&18");
+
+            }
+            public void Login()
+            {
+
+                loginButton.Click();
+            }
         }
-    }
-}
+    } 

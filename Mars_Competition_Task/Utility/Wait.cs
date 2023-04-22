@@ -33,7 +33,6 @@ namespace Mars_Competition_Task.Utility
                 wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.Name(LocatorValue)));
 
             }
-
         }
 
     }

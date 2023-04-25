@@ -20,13 +20,28 @@ namespace Mars_Competition_Task.Test
         HomePage homePageObj = new HomePage();
         ManageListingPage manageListingPageObj= new ManageListingPage();
        
-
+        
 
             [Test, Order(1)]
-            public void ShareSkillAddition()
-            {         
-                homePageObj.ShareSkillButton();
-            }
+            public void ShareSkillEdit()
+            {
+            loginPageObj.SignInButton();
+            loginPageObj.Email();
+            loginPageObj.Password();
+            loginPageObj.Login();
+            homePageObj.ManageListingTbButton();
+            manageListingPageObj.UpdateShareSkill();
+            manageListingPageObj.UpdateTitle();
+            manageListingPageObj.UpdateDescription();
+            manageListingPageObj.UpdateCategory();
+            manageListingPageObj.UpdateSubCategory();
+            manageListingPageObj.UpdateTags();
+            manageListingPageObj.UpdateServiceTypeRB();
+            manageListingPageObj.UpdateLocationTypeRB();
+            manageListingPageObj.UpdateSExchTypeRB();
+            manageListingPageObj.UpdateWorkSamples();
+            manageListingPageObj.SaveButton();
+        }
 
             [TearDown]
             public void CloseTestRun()

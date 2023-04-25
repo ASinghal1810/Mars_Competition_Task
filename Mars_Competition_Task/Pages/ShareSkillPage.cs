@@ -34,6 +34,9 @@ namespace Mars_Competition_Task.Pages
         private IWebElement sExchTypeRB => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[8]/div[4]/div/div/div/div/div/input"));
         private IWebElement workSamples => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[9]/div/div[2]/section/div/label/div/span/i"));
         private IWebElement saveB => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[11]/div/input[1]"));
+        private IWebElement cancelB => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[11]/div/input[2]"));
+
+       Excel exceObj= new Excel();
         
         public void Title()
         {
@@ -117,6 +120,11 @@ namespace Mars_Competition_Task.Pages
         public void SaveButton()
         {
             Wait.WaitToBeClickable("XPath", 5, "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[11]/div/input[1]");
+            saveB.Click();
+        }
+        public void CancelButton()
+        {
+            Wait.WaitToBeClickable("XPath", 5, "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[11]/div/input[2]");
             saveB.Click();
         }
     }

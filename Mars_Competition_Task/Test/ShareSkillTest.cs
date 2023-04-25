@@ -20,6 +20,8 @@ namespace Mars_Competition_Task.Test
         LoginPage loginPageObj;
         HomePage homePageObj;
         ShareSkillPage shareSkillPageObj;
+        private static string FILENAME;
+
 
         public ShareSkillTest()
         {
@@ -27,13 +29,15 @@ namespace Mars_Competition_Task.Test
            loginPageObj = new LoginPage();
             homePageObj = new HomePage();
             shareSkillPageObj = new ShareSkillPage();
+            FILENAME = "Registeration_Data.xlsx";
+
         }
         
 
         [Test, Order(1)]
         public void ShareSkillAddition()
         {
-           // StartWebsite();
+           
             loginPageObj.SignInButton();
             loginPageObj.Email();
             loginPageObj.Password();
@@ -49,6 +53,40 @@ namespace Mars_Competition_Task.Test
             shareSkillPageObj.SExchTypeRB();
             shareSkillPageObj.WorkSamples();
             shareSkillPageObj.SaveButton();
+        }
+        [Test, Order(2)]
+        public void ShareSkillAdditionButCancelSaveOperation()
+        {
+
+            loginPageObj.SignInButton();
+            loginPageObj.Email();
+            loginPageObj.Password();
+            loginPageObj.Login();
+            homePageObj.ShareSkillButton();
+            shareSkillPageObj.Title();
+            shareSkillPageObj.Description();
+            shareSkillPageObj.Category();
+            shareSkillPageObj.SubCategory();
+            shareSkillPageObj.Tags();
+            shareSkillPageObj.ServiceTypeRB();
+            shareSkillPageObj.LocationTypeRB();
+            shareSkillPageObj.SExchTypeRB();
+            shareSkillPageObj.WorkSamples();
+            shareSkillPageObj.CancelButton();
+        }
+
+        [TestCaseSource("RegisrtrationData")]
+        public void CheckName_Validations(string name, string email, string phone, string password)
+        {
+            Assert.Multiple(() =>
+            {
+                Assert.IsNotEmpty(name);
+               
+            });
+        }
+        public static IEnumerable<TestCaseData> RegisrtrationData()
+        {
+            return ExcelReader.ReadFromExcel(FILENAME, "Registeration");
         }
 
         [TearDown]

@@ -16,32 +16,22 @@ namespace Mars_Competition_Task.Pages
         private IWebElement email => driver.FindElement(By.Name("email"));
         private IWebElement passowrd => driver.FindElement(By.Name("password"));
         private IWebElement loginButton => driver.FindElement(By.XPath("//*[@class=\"ui large form  \" and @autocomplete=\"on\"]/div[4]/button"));
-        
-        
-            public void SignInButton()
-            {
-                //signInButton = driver.FindElement(By.XPath("//*[@id=\"home\"]/div/div/div[1]/div/a"));
-                signInButton.Click();
 
-            }
-            public void Email()
-            {
-
-                email.Click();
-                email.SendKeys("ankursinghal9118@gmail.com");
-
-            }
-            public void Password()
-            {
-
-                passowrd.Click();
-                passowrd.SendKeys("Singhal&18");
-
-            }
-            public void Login()
-            {
-
-                loginButton.Click();
-            }
+        public void ClearLoginInformation()
+        {
+            email.Clear();
+            passowrd.Clear();
         }
+        public void SignInFunction(string emailAddress, string loginPassword)
+            {
+            
+            signInButton.Click();
+            //email.Click();
+            email.SendKeys(emailAddress);
+            //passowrd.Click();
+            passowrd.SendKeys(loginPassword);
+            loginButton.Click();
+            }
+        
+    }
     } 

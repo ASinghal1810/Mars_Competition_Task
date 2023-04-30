@@ -19,16 +19,13 @@ namespace Mars_Competition_Task.Test
         LoginPage loginPageObj = new LoginPage();
         HomePage homePageObj = new HomePage();
         ManageListingPage manageListingPageObj= new ManageListingPage();
+
        
-        
 
             [Test, Order(1)]
             public void ShareSkillEdit()
             {
-            loginPageObj.SignInButton();
-            loginPageObj.Email();
-            loginPageObj.Password();
-            loginPageObj.Login();
+            
             homePageObj.ManageListingTbButton();
             manageListingPageObj.UpdateShareSkill();
             manageListingPageObj.UpdateTitle();
@@ -41,7 +38,7 @@ namespace Mars_Competition_Task.Test
             manageListingPageObj.UpdateSExchTypeRB();
             manageListingPageObj.UpdateWorkSamples();
             manageListingPageObj.SaveButton();
-        }
+            }
 
             [TearDown]
             public void CloseTestRun()

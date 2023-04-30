@@ -22,24 +22,31 @@
   <ItemGroup>
     <PackageReference Include="AutoItX.Dotnet" Version="3.3.14.5" />
     <PackageReference Include="AutoItX3.Net" Version="3.3.16.1" />
+    <PackageReference Include="Castle.Core" Version="5.0.0" />
+    <PackageReference Include="DotNetSeleniumExtras.PageObjects" Version="3.11.0" />
+    <PackageReference Include="DotNetSeleniumExtras.PageObjects.Core" Version="4.3.0" />
     <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
     <PackageReference Include="EO.WebBrowser.Wpf" Version="23.1.77" />
     <PackageReference Include="ExcelDataReader" Version="3.6.0" />
     <PackageReference Include="ExcelDataReader.DataSet" Version="3.6.0" />
     <PackageReference Include="ExtentReports" Version="4.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+    <PackageReference Include="Microsoft.CodeCoverage" Version="17.2.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.Exchange.WebServices.NETStandard" Version="1.1.3" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
     <PackageReference Include="Microsoft.NETCore.App" Version="2.2.8" />
     <PackageReference Include="Microsoft.NETCore.Platforms" Version="7.0.2" />
     <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1001" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.0.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit.Console" Version="3.16.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.4.2" />
     <PackageReference Include="runtime.any.System.Runtime.InteropServices" Version="4.3.0" />
-    <PackageReference Include="Selenium.Support" Version="4.9.0" />
-    <PackageReference Include="Selenium.WebDriver" Version="4.9.0" />
+    <PackageReference Include="Selenium.Support" Version="3.13.1" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.3.0" />
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="112.0.5615.4900" />
     <PackageReference Include="System.Data.OleDb" Version="7.0.0" />
     <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
@@ -52,6 +59,12 @@
     <Reference Include="office">
       <HintPath>..\..\..\..\..\..\Windows\assembly\GAC_MSIL\office\15.0.0.0__71e9bce111e9429c\OFFICE.DLL</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Spreadsheets\Share Skill.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -11,6 +11,7 @@ using System.Text;
 using SharpCompress.Common;
 
 
+
 namespace CompetitionTask.Utilites
 {
 
@@ -43,7 +44,7 @@ namespace CompetitionTask.Utilites
             {
                 ConfigureDataTable = (_) => new ExcelDataTableConfiguration()
                 {
-                    UseHeaderRow = false
+                    UseHeaderRow = true
                 }
             });
             DataTableCollection table = resultSet.Tables;
@@ -55,16 +56,20 @@ namespace CompetitionTask.Utilites
         {
             try
             {
-                string data = (from colData in dataCol
-                               where colData.colValue == columnName && colData.rowNumber == rowNumber
-                               select colData.colValue).SingleOrDefault();
-                return data; ;
+                ////Retrieving Data using LINQ
+                var data = (from colData in dataCol
+                            where colData.colName == columnName && colData.rowNumber == rowNumber
+                            select colData.colValue).First().ToString();
+
+                //var data = dataCol.Where(x => x.colName == columnName && x.rowNumber == rowNumber).SingleOrDefault().colValue;
+                return data.ToString();
             }
             catch (Exception e)
             {
-                Console.WriteLine("Exception occurred in ExcelLib Class ReadData Method!" + Environment.NewLine + e.ToString());
+                e.Message.ToString();
                 return null;
             }
+            
         }
 
         public static void PopulateInCollection(string filename, string SheetName)

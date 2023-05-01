@@ -40,13 +40,14 @@ namespace Mars_Competition_Task.Test
         public void ShareSkillAddition()
         {
             ExtentReporting.LogInfo("Share Skills Action");
-            ExcelLib.PopulateInCollection(@"C:\Users\ankur\Desktop\Mars_Competition_Task\Mars_Competition_Task\Mars_Competition_Task\Spreadsheets\Test Data.xlsx", "Login");         
-            loginPageObj.SignInFunction(ExcelLib.ReadData(2, "Username"), ExcelLib.ReadData(2, "Password"));
+            ExcelLib.PopulateInCollection(@"C:\Users\ankur\Desktop\Mars_Competition_Task\Mars_Competition_Task\Mars_Competition_Task\Spreadsheets\Test Data.xlsx", "Login");
+            
+            loginPageObj.SignInFunction(ExcelLib.ReadData(1, "Username"), ExcelLib.ReadData(1, "Password"));
            // loginPageObj.SignInFunction("ankursinghal9118@gmail.com", "Singhal&18");
             homePageObj.ShareSkillButton();
-            ExcelLib.PopulateInCollection(@"C:\Users\ankur\Desktop\Mars_Competition_Task\Mars_Competition_Task\Mars_Competition_Task\Spreadsheets\Share Skill.xlsx", "Sheet1");
+            ExcelLib.PopulateInCollection(@"C:\Users\ankur\Desktop\Mars_Competition_Task\Mars_Competition_Task\Mars_Competition_Task\Spreadsheets\Share Skill.xlsx", "ShareSkill");
             //Pass Parameters String EnterTitle,String EnterDescription, string EnterCategory, string EnterSubCategory, string EnterTag, string EnterSkillExchange, string EnterWorkSamplesLink
-            shareSkillPageObj.ShareSkillTest1Addition("1", "2", "3", "4","5","123", "\"C:\\Users\\ankur\\Desktop\\Mars_Competition_Task\\jpg_44.jpg\"");
+            shareSkillPageObj.ShareSkillTest1Addition(ExcelLib.ReadData(1, "Title"), ExcelLib.ReadData(1, "Description"), ExcelLib.ReadData(1, "Category"), ExcelLib.ReadData(1, "Sub Category"), ExcelLib.ReadData(1, "Tag"), ExcelLib.ReadData(1, "Credit"), ExcelLib.ReadData(1, "Work Samples"));
         }
 
        

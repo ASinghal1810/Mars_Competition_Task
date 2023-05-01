@@ -17,14 +17,9 @@ namespace Mars_Competition_Task.Pages
         private IWebElement passowrd => driver.FindElement(By.Name("password"));
         private IWebElement loginButton => driver.FindElement(By.XPath("//*[@class=\"ui large form  \" and @autocomplete=\"on\"]/div[4]/button"));
 
-        public void ClearLoginInformation()
-        {
-            email.Clear();
-            passowrd.Clear();
-        }
+       
         public void SignInFunction(string emailAddress, string loginPassword)
             {
-            
             signInButton.Click();
             //email.Click();
             email.SendKeys(emailAddress);
@@ -34,4 +29,4 @@ namespace Mars_Competition_Task.Pages
             }
         
     }
-    } 
+} 

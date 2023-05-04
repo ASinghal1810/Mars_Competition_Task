@@ -35,7 +35,7 @@ namespace CompetitionTask.Utilites
         private static DataTable ExcelToDataTable(string filename, string SheetName)
         {
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-            FileStream stream = File.Open(filename, FileMode.Open, FileAccess.Read);
+            FileStream stream = File.Open(filename, FileMode.Open, FileAccess.ReadWrite);
             IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
 
             // excelReader.IsFirstRowAsColumnNames = true * Does not works anymore
@@ -48,7 +48,7 @@ namespace CompetitionTask.Utilites
                 }
             });
             DataTableCollection table = resultSet.Tables;
-            DataTable resultTable = table["Login"];
+            DataTable resultTable = table[SheetName];
             return resultTable;
         }
 
@@ -72,11 +72,30 @@ namespace CompetitionTask.Utilites
             
         }
 
+        public static string WriteData(int rowNumber, string columnName)
+        {
+            try
+            {
+                ////Retrieving Data using LINQ
+                var data = (from colData in dataCol
+                        where colData.colName == columnName && colData.rowNumber == rowNumber
+                        select colData.colValue).First().ToString();
+                //var data = dataCol.Where(x => x.colName == columnName && x.rowNumber == rowNumber).SingleOrDefault().colValue;
+                return data.ToString();
+            }
+            catch (Exception e)
+            {
+                e.Message.ToString();
+                return null;
+            }
+
+        }
+
         public static void PopulateInCollection(string filename, string SheetName)
         {
-            ExcelLib.ClearData();
+            //ExcelLib.ClearData();
             DataTable table = ExcelToDataTable(filename, SheetName);
-            // totalRowCount = table.Rows.Count;
+            //int totalRowCount = table.Rows.Count;
             for (int row = 1; row <= table.Rows.Count; row++)
             {
                 for (int col = 0; col < table.Columns.Count; col++)

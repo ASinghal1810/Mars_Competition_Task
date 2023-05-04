@@ -36,85 +36,56 @@ namespace Mars_Competition_Task.Pages
             Wait.WaitToBeClickable("XPath", 5, "//tr[1]/td[7]/div/input[@name=\"isActive\"]");
             isActive.Click();
         }
-        public void UpdateShareSkill()
+        public void UpdateShareSkill(String EnterTitle, String EnterDescription, string EnterCategory, string EnterSubCategory, string EnterTag, string EnterCredit, string EnterWorkSamplesLink)
         {
             Wait.WaitToBeClickable("XPath", 5, "//*[@id=\"listing-management-section\"]/div[2]/div/div/table/tbody/tr[2]/td[8]/div/button[2]");
             pencilEdit.Click();
-        }
-        public void DeleteShareSkill()
-        {
-            Wait.WaitToBeClickable("XPath", 5, "//*[@id=\"listing-management-section\"]/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[8]/div/button[3]/i");
-            xDelete.Click();
-        }
-        public void UpdateTitle()
-        {
+
             //Title
-            
             Wait.WaitToBeClickable("Name", 2, "title");
             titleTextBox.Clear();
             titleTextBox.SendKeys("Software Testing");
-        }
-        public void UpdateDescription()
-        {
+
             //Description
-            
             Wait.WaitToBeClickable("Name", 2, "description");
             descTestBox.Clear();
             descTestBox.SendKeys("Fresher providing efficient Testing Services for Web Applications");
-        }
-        public void UpdateCategory()
-        {
+
             //Category
             SelectElement categorySelect = new SelectElement(categoryDropDown);
             categorySelect.SelectByValue("6");
-        }
-        public void UpdateSubCategory()
-        {
+
             //Sub Category
             Wait.WaitToBeClickable("Name", 2, "categoryId");
             SelectElement subCategorySelect = new SelectElement(subCategoryDropDown);
             //subCategoryDropDown.SendKeys(Keys.Space);
             subCategorySelect.SelectByValue("4");
-        }
-        public void UpdateTags()
-        {
+
             //Tags
             Wait.WaitToBeClickable("XPath", 2, "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[4]/div[2]/div/div/div/div/input");
             tags.SendKeys("Professional" + "\n");
-        }
-        public void UpdateServiceTypeRB()
-        {
+
             //Service Type Radio Button
             serviceTypeRB.Click();
-        }
-        public void UpdateLocationTypeRB()
-        {
+
             //Location Type
             //Wait.WaitToBeClickable(driver, "XPath", 5, "//div[5]//div[2]//div[1]//div[2]//div[1]//input[1]");
             locationTypeRB.Click();
-        }
-        public void UpdateDaysTypeRB()
-        {
+
             // SUnday Button
             // Wait.WaitToBeClickable(driver, "CssSelector", 5, "#service-listing-section > div.ui.container > div > form > div:nth-child(7) > div.twelve.wide.column > div > div:nth-child(2) > div.two.wide.field > div > input[type=checkbox]");
             daysTypeRB.Click();
-        }
-        public void UpdateSTradeTypeRB()
-        {
+
             //// Wait.WaitToBeClickable(driver, "XPath", 5, "//div[5]//div[2]//div[1]//div[2]//div[1]//input[1]");
             sTradeTypeRB.Click();
-        }
-        public void UpdateSExchTypeRB()
-        {
+
             Wait.WaitToBeClickable("XPath", 5, "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[8]/div[4]/div/div/div/div/div/input");
             Thread.Sleep(3000);
             sExchTypeRB.SendKeys("Professional" + "\n");
             sExchTypeRB.SendKeys("Time Management" + "\n");
             sExchTypeRB.SendKeys("Communication" + "\n");
             sExchTypeRB.SendKeys("Team Player" + "\n");
-        }
-        public void UpdateWorkSamples()
-        {
+
             // Identify the Work Samples and click the plus button to upload photo
             //  Max file size is 2 MB and supported file types are gif / jpeg / png / jpg / doc(x) / pdf / txt / xls(x
 
@@ -128,11 +99,15 @@ namespace Mars_Competition_Task.Pages
             Thread.Sleep(500);
             autoIt.Send("{ENTER}");
             Thread.Sleep(500);
-        }
-        public void SaveButton()
-        {
+
             Wait.WaitToBeClickable("XPath", 5, "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[11]/div/input[1]");
             saveB.Click();
         }
+        public void DeleteShareSkill()
+        {
+            Wait.WaitToBeClickable("XPath", 5, "//*[@id=\"listing-management-section\"]/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[8]/div/button[3]/i");
+            xDelete.Click();
+        }
+       
     }
 }

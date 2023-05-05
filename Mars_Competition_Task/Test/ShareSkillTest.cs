@@ -112,7 +112,7 @@ namespace Mars_Competition_Task.Test
         public void ShareSkillAdditionButCancelSaveOperation()
         {
             //Extent Report Start
-            ExtentReporting.LogInfo("Share Skills Action");
+            ExtentReporting.LogInfo("Share Skills Addition Cancel");
 
             // Login to Mars Portal
             ExcelLib.PopulateInCollection(@"C:\Users\ankur\Desktop\Mars_Competition_Task\Mars_Competition_Task\Mars_Competition_Task\Spreadsheets\Test Data.xlsx", "Login");

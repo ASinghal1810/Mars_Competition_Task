@@ -20,7 +20,8 @@ namespace Mars_Competition_Task.Pages
         private IWebElement loginName => driver.FindElement(By.XPath("//div[contains(text(),\"Ankur Singhal\")]"));
 
        
-        public void SignInFunction(string emailAddress, string loginPassword)
+        public void SignInFunction(string emailAddress, 
+                                    string loginPassword)
             {
             signInButton.Click();
             //email.Click();

@@ -59,7 +59,7 @@ namespace Mars_Competition_Task.Pages
         private IWebElement categoryText => driver.FindElement(By.XPath("//*[@id=\"listing-management-section\"]/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[2]"));
         private IWebElement serviceTypeText => driver.FindElement(By.XPath("//*[@id=\"listing-management-section\"]/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[5]"));
         public IWebElement tagRemoval => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[4]/div[2]/div/div/div/span[1]/a"));
-        public IWebElement tagRemovalText => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[4]/div[2]/div/div/div/span[1]/text()"));
+        public IWebElement tagRemovalText => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[4]/div[2]/div/div/div/span"));
         
 
         public void IsActive()
@@ -103,6 +103,9 @@ namespace Mars_Competition_Task.Pages
                                             string EnterWorkSamplesLink,
                                             string Active)
         {
+            Thread.Sleep(1000);
+            pencilEdit.Click();
+            Thread.Sleep(1000);
 
             //Title
             Wait.WaitToBeClickable("Name", 10, "title");
@@ -128,11 +131,11 @@ namespace Mars_Competition_Task.Pages
             Thread.Sleep(200);
 
             //Tags
-            Wait.WaitToBeClickable("XPath", 10, "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[4]/div[2]/div/div/div/div/input");
-            while(tagRemovalText.Text != null)
-            { 
-            tagRemoval.Click();
-            }
+            //Wait.WaitToBeClickable("XPath", 10, "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[4]/div[2]/div/div/div/div/input");
+            //while(tagRemovalText.Text != null)
+            //{ 
+            //tagRemoval.Click();
+            //}
             tags.SendKeys(EnterTag + "\n");
             Thread.Sleep(200);
 

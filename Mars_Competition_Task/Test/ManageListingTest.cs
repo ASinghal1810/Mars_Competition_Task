@@ -37,9 +37,9 @@ namespace Mars_Competition_Task.Test
                                         ExcelLib.ReadData(1, "Password"));
 
             //Go To Share Skill Entry Form
-            homePageObj.ShareSkillButton();
+            homePageObj.ManageListingTbButton();
             //Fill in all fields in Share Skill Form and Save
-            ExcelLib.PopulateInCollection(@"C:\Users\ankur\Desktop\Mars_Competition_Task\Mars_Competition_Task\Mars_Competition_Task\Spreadsheets\Share Skill Test Data.xlsx", "ShareSkill");
+            ExcelLib.PopulateInCollection(@"C:\Users\ankur\Desktop\Mars_Competition_Task\Mars_Competition_Task\Mars_Competition_Task\Spreadsheets\Manage Lsiting Test Data.xlsx", "ShareSkill");
             //Pass Parameters String EnterTitle,String EnterDescription, string EnterCategory, string EnterSubCategory, string EnterTag, string EnterSkillExchange, string EnterWorkSamplesLink
             manageListingPageObj.UpdateShareSkill(ExcelLib.ReadData(1, "Title"),
                                                             ExcelLib.ReadData(1, "Description"),

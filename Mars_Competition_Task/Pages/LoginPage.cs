@@ -29,7 +29,7 @@ namespace Mars_Competition_Task.Pages
             //passowrd.Click();
             passowrd.SendKeys(loginPassword);
             loginButton.Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             Assert.That(loginName.Text == "Ankur Singhal", "Login name and username match unsuccessful");
         }
         

@@ -63,6 +63,8 @@ namespace Mars_Competition_Task.Pages
         private IWebElement credit => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[8]/div[4]/div/div/input"));
         private IWebElement sExch => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[8]/div[4]/div/div/div/div/div/input"));
         private IWebElement workSamples => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[9]/div/div[2]/section/div/label/div/span/i"));
+        private IWebElement sSIsActive => driver.FindElement(By.XPath("//*[@name=\"isActive\" and @tabindex=\"0\" and @value=\"true\"]"));
+        private IWebElement sSIsHidden => driver.FindElement(By.XPath("//*[@name=\"isActive\" and @tabindex=\"0\" and @value=\"false\"]"));
         private IWebElement saveB => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[11]/div/input[1]"));
         private IWebElement cancelB => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[11]/div/input[2]"));
         private IWebElement titleText => driver.FindElement(By.XPath("//*[@id=\"listing-management-section\"]/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[3]"));
@@ -106,29 +108,29 @@ namespace Mars_Competition_Task.Pages
                                             string EnterWorkSamplesLink,
                                             string Active)
         {
-            Thread.Sleep(3000);
+            Thread.Sleep(300);
             //Title
             Wait.WaitToBeClickable("Name", 10, "title");
             titleTextBox.SendKeys(EnterTitle);
-            Thread.Sleep(3000);
+            Thread.Sleep(300);
             //Description
             Wait.WaitToBeClickable("Name", 10, "description");
             descTestBox.SendKeys(EnterDescription);
-            Thread.Sleep(3000);
+            Thread.Sleep(300);
             //Category
             SelectElement categorySelect = new SelectElement(categoryDropDown);
             categorySelect.SelectByValue(EnterCategory);
-            Thread.Sleep(3000);
+            Thread.Sleep(300);
             //Sub Category
             Wait.WaitToBeClickable("Name", 10, "categoryId");
             SelectElement subCategorySelect = new SelectElement(subCategoryDropDown);
             //subCategoryDropDown.SendKeys(Keys.Space);
             subCategorySelect.SelectByValue(EnterSubCategory);
-            Thread.Sleep(3000);
+            Thread.Sleep(300);
             //Tags
             Wait.WaitToBeClickable("XPath", 10, "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[4]/div[2]/div/div/div/div/input");
             tags.SendKeys(EnterTag + "\n");
-            Thread.Sleep(3000);
+            Thread.Sleep(300);
             //Service Type Radio Button
             if (ServiceType == "Hourly")
             {
@@ -138,7 +140,7 @@ namespace Mars_Competition_Task.Pages
             {
                 serviceTypeOneOffRB.Click();
             }
-            Thread.Sleep(3000);
+            Thread.Sleep(300);
             //Location Type
             //Wait.WaitToBeClickable(driver, "XPath", 5, "//div[5]//div[2]//div[1]//div[2]//div[1]//input[1]");
             if (LocationType == "Online")
@@ -149,7 +151,7 @@ namespace Mars_Competition_Task.Pages
             {
                 locationTypeOnlineRB.Click();
             }
-            Thread.Sleep(1000);
+            Thread.Sleep(300);
 
             //Start Date
             startDate.SendKeys(SsStartDate);
@@ -163,10 +165,12 @@ namespace Mars_Competition_Task.Pages
             // Sunday Button
             if (SsSunday == "Active")
             {
+
                 sunday.Click();
                 sundayST.SendKeys(SsSundayST);
-                sundayST.SendKeys(SsSundayET);
+                sundayET.SendKeys(SsSundayET);
             }
+
 
             // Monday Button
             if (SsMonday == "Active")
@@ -186,6 +190,7 @@ namespace Mars_Competition_Task.Pages
 
             }
 
+
             // Wednesday Button
             if (SsWednesday == "Active")
             {
@@ -194,6 +199,7 @@ namespace Mars_Competition_Task.Pages
                 wednesdayET.SendKeys(SsWednesdayET);
 
             }
+
 
             // Thursday Button
             if (SsThursday == "Active")
@@ -204,6 +210,7 @@ namespace Mars_Competition_Task.Pages
 
             }
 
+
             // Friday Button
             if (SsFriday == "Active")
             {
@@ -213,6 +220,7 @@ namespace Mars_Competition_Task.Pages
 
             }
 
+
             // Saturday Button
             if (SsSaturday == "Active")
             {
@@ -221,10 +229,11 @@ namespace Mars_Competition_Task.Pages
                 saturdayET.SendKeys(SsSaturdayET);
 
             }
-            Thread.Sleep(3000);
+
+            Thread.Sleep(300);
             //Wait.WaitToBeClickable(driver, "XPath", 5, "//div[5]//div[2]//div[1]//div[2]//div[1]//input[1]");
             sTradeTypeRB.Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(300);
             //Credit Or Skill-Exchange
             if(EnterSkillTrade=="Skill-Exchange")
             {
@@ -246,11 +255,11 @@ namespace Mars_Competition_Task.Pages
             //Thread.Sleep(3000);
             //sExchTypeRB.SendKeys(EnterSkillExchange + "\n");
            
-            Thread.Sleep(3000);
+            Thread.Sleep(300);
             //Work Samples
             // Identify the Work Samples and click the plus button to upload photo
             //  Max file size is 2 MB and supported file types are gif / jpeg / png / jpg / doc(x) / pdf / txt / xls(x
-            Thread.Sleep(3000);
+            Thread.Sleep(300);
             workSamples.Click();
             Thread.Sleep(500);
             AutoItX3 autoIt = new AutoItX3();
@@ -261,7 +270,17 @@ namespace Mars_Competition_Task.Pages
             Thread.Sleep(500);
             autoIt.Send("{ENTER}");
             Thread.Sleep(500);
-            
+
+            //Active/Deactive
+            if (Active == "Active")
+            {
+                sSIsActive.Click();
+            }
+            else
+            {
+                sSIsHidden.Click();
+            }
+
             //SaveButton
             Wait.WaitToBeClickable("XPath", 10, "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[11]/div/input[1]");
             saveB.Click();
@@ -281,6 +300,14 @@ namespace Mars_Competition_Task.Pages
             Thread.Sleep(500);
             Assert.That(serviceTypeText.Text == EnterServiceType, "Service Type match unsuccessful");
            
+        }
+        public void ShareSkillTest2CancelOperationAssertion(String EnterTitle)
+        {
+
+            Thread.Sleep(1500);
+            Assert.That(titleText.Text != EnterTitle, " Record Created");
+            
+
         }
         public void ShareSkillTest1AdditionCancel(String EnterTitle,
                                             String EnterDescription,
@@ -319,29 +346,29 @@ namespace Mars_Competition_Task.Pages
                                             string Active)
         {
 
-            Thread.Sleep(3000);
+            Thread.Sleep(300);
             //Title
             Wait.WaitToBeClickable("Name", 10, "title");
             titleTextBox.SendKeys(EnterTitle);
-            Thread.Sleep(3000);
+            Thread.Sleep(300);
             //Description
             Wait.WaitToBeClickable("Name", 10, "description");
             descTestBox.SendKeys(EnterDescription);
-            Thread.Sleep(3000);
+            Thread.Sleep(300);
             //Category
             SelectElement categorySelect = new SelectElement(categoryDropDown);
             categorySelect.SelectByValue(EnterCategory);
-            Thread.Sleep(3000);
+            Thread.Sleep(300);
             //Sub Category
             Wait.WaitToBeClickable("Name", 10, "categoryId");
             SelectElement subCategorySelect = new SelectElement(subCategoryDropDown);
             //subCategoryDropDown.SendKeys(Keys.Space);
             subCategorySelect.SelectByValue(EnterSubCategory);
-            Thread.Sleep(3000);
+            Thread.Sleep(300);
             //Tags
             Wait.WaitToBeClickable("XPath", 10, "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[4]/div[2]/div/div/div/div/input");
             tags.SendKeys(EnterTag + "\n");
-            Thread.Sleep(3000);
+            Thread.Sleep(300);
             //Service Type Radio Button
             if (ServiceType == "Hourly")
             {
@@ -351,7 +378,7 @@ namespace Mars_Competition_Task.Pages
             {
                 serviceTypeOneOffRB.Click();
             }
-            Thread.Sleep(3000);
+            Thread.Sleep(300);
             //Location Type
             //Wait.WaitToBeClickable(driver, "XPath", 5, "//div[5]//div[2]//div[1]//div[2]//div[1]//input[1]");
             if (LocationType == "Online")
@@ -362,7 +389,7 @@ namespace Mars_Competition_Task.Pages
             {
                 locationTypeOnlineRB.Click();
             }
-            Thread.Sleep(1000);
+            Thread.Sleep(300);
 
             //Start Date
             startDate.SendKeys(SsStartDate);
@@ -376,49 +403,75 @@ namespace Mars_Competition_Task.Pages
             // Sunday Button
             if (SsSunday == "Active")
             {
-                sunday.Click();
 
+                sunday.Click();
+                sundayST.SendKeys(SsSundayST);
+                sundayET.SendKeys(SsSundayET);
             }
+            
 
             // Monday Button
             if (SsMonday == "Active")
             {
                 monday.Click();
-            }
+                mondayST.SendKeys(SsMondayST);
+                mondayET.SendKeys(SsMondayET);
 
+            }
+            
             // Tuesday Button
             if (SsTuesday == "Active")
             {
                 tuesday.Click();
+                tuesdayST.SendKeys(SsTuesdayST);
+                tuesdayET.SendKeys(SsTuesdayET);
+
             }
+            
 
             // Wednesday Button
             if (SsWednesday == "Active")
             {
                 wednesday.Click();
+                wednesdayST.SendKeys(SsWednesdayST);
+                wednesdayET.SendKeys(SsWednesdayET);
+
             }
+           
 
             // Thursday Button
             if (SsThursday == "Active")
             {
                 thursday.Click();
+                thursdayST.SendKeys(SsThursdayST);
+                thursdayET.SendKeys(SsThursdayET);
+
             }
+            
 
             // Friday Button
             if (SsFriday == "Active")
             {
                 friday.Click();
+                fridayST.SendKeys(SsFridayST);
+                fridayET.SendKeys(SsFridayET);
+
             }
+            
 
             // Saturday Button
             if (SsSaturday == "Active")
             {
                 saturday.Click();
+                saturdayST.SendKeys(SsSaturdayST);
+                saturdayET.SendKeys(SsSaturdayET);
+
             }
-            Thread.Sleep(3000);
+            
+            Thread.Sleep(300);
             //Wait.WaitToBeClickable(driver, "XPath", 5, "//div[5]//div[2]//div[1]//div[2]//div[1]//input[1]");
             sTradeTypeRB.Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(300);
             //Credit Or Skill-Exchange
             if (EnterSkillTrade == "Skill-Exchange")
             {
@@ -440,11 +493,11 @@ namespace Mars_Competition_Task.Pages
             //Thread.Sleep(3000);
             //sExchTypeRB.SendKeys(EnterSkillExchange + "\n");
 
-            Thread.Sleep(3000);
+            Thread.Sleep(300);
             //Work Samples
             // Identify the Work Samples and click the plus button to upload photo
             //  Max file size is 2 MB and supported file types are gif / jpeg / png / jpg / doc(x) / pdf / txt / xls(x
-            Thread.Sleep(3000);
+            Thread.Sleep(300);
             workSamples.Click();
             Thread.Sleep(500);
             AutoItX3 autoIt = new AutoItX3();
@@ -455,6 +508,16 @@ namespace Mars_Competition_Task.Pages
             Thread.Sleep(500);
             autoIt.Send("{ENTER}");
             Thread.Sleep(500);
+
+            //Active/Deactive
+            if (Active == "Active")
+            {
+                sSIsActive.Click();
+            }
+            else
+            {
+                sSIsHidden.Click();
+            }
 
             //CancelButton
             Wait.WaitToBeClickable("XPath", 10, "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[11]/div/input[2]");

@@ -1,4 +1,5 @@
 ﻿using AutoItX3Lib;
+using EO.WebBrowser.DOM;
 using Mars_Competition_Task.Driver;
 using Mars_Competition_Task.Utility;
 using OpenQA.Selenium;
@@ -8,13 +9,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace Mars_Competition_Task.Pages
 {
     public class ManageListingPage : MarsDriver
     {
         private IWebElement isActive => driver.FindElement(By.XPath("//tr[1]/td[7]/div/input[@name=\"isActive\"]"));
-        private IWebElement pencilEdit => driver.FindElement(By.XPath("//*[@id=\"listing-management-section\"]/div[2]/div/div/table/tbody/tr[2]/td[8]/div/button[2]"));
+        private IWebElement pencilEdit => driver.FindElement(By.XPath("//*[@id=\"listing-management-section\"]/div[2]/div/div/table/tbody/tr[1]/td[8]/div/button[2]"));
+        
         private IWebElement xDelete => driver.FindElement(By.XPath("//*[@id=\"listing-management-section\"]/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[8]/div/button[3]"));
         private IWebElement titleTextBox => driver.FindElement(By.Name("title"));
         private IWebElement descTestBox => driver.FindElement(By.Name("description"));
@@ -28,6 +31,7 @@ namespace Mars_Competition_Task.Pages
         private IWebElement startDate => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[1]/div[2]/input"));
         private IWebElement endDate => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[1]/div[4]/input"));
         private IWebElement sunday => driver.FindElement(By.XPath("//input[@name=\"Available\" and @index=\"0\"]"));
+        
         private IWebElement sundayST => driver.FindElement(By.XPath("//input[@name=\"StartTime\" and @index=\"0\"]"));
         private IWebElement sundayET => driver.FindElement(By.XPath("//input[@name=\"EndTime\" and @index=\"0\"]"));
         private IWebElement monday => driver.FindElement(By.XPath("//input[@name=\"Available\" and @index=\"1\"]"));
@@ -52,14 +56,16 @@ namespace Mars_Competition_Task.Pages
         private IWebElement credit => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[8]/div[4]/div/div/input"));
         private IWebElement sExch => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[8]/div[4]/div/div/div/div/div/input"));
         private IWebElement workSamples => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[9]/div/div[2]/section/div/label/div/span/i"));
+        private IWebElement sSIsActive => driver.FindElement(By.XPath("//*[@name=\"isActive\" and @tabindex=\"0\" and @value=\"true\"]"));
+        private IWebElement sSIsHidden => driver.FindElement(By.XPath("//*[@name=\"isActive\" and @tabindex=\"0\" and @value=\"false\"]"));
         private IWebElement saveB => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[11]/div/input[1]"));
         private IWebElement cancelB => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[11]/div/input[2]"));
         private IWebElement titleText => driver.FindElement(By.XPath("//*[@id=\"listing-management-section\"]/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[3]"));
         private IWebElement descriptionText => driver.FindElement(By.XPath("//*[@id=\"listing-management-section\"]/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[4]"));
         private IWebElement categoryText => driver.FindElement(By.XPath("//*[@id=\"listing-management-section\"]/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[2]"));
         private IWebElement serviceTypeText => driver.FindElement(By.XPath("//*[@id=\"listing-management-section\"]/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[5]"));
-        public IWebElement tagRemoval => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[4]/div[2]/div/div/div/span[1]/a"));
-        public IWebElement tagRemovalText => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[4]/div[2]/div/div/div/span"));
+        private IWebElement tagRemoval => driver.FindElement(By.XPath("//*[@class=\"ReactTags__tag\"]/a"));
+        private IWebElement acceptOrDecline => driver.FindElement(By.XPath("//*[@class=\"ui icon positive right labeled button\"]"));
         
 
         public void IsActive()
@@ -105,7 +111,7 @@ namespace Mars_Competition_Task.Pages
         {
             Thread.Sleep(1000);
             pencilEdit.Click();
-            Thread.Sleep(1000);
+            Thread.Sleep(100);
 
             //Title
             Wait.WaitToBeClickable("Name", 10, "title");
@@ -115,8 +121,10 @@ namespace Mars_Competition_Task.Pages
 
             //Description
             Wait.WaitToBeClickable("Name", 10, "description");
-            descTestBox.SendKeys(EnterDescription);
             descTestBox.Clear();
+            Thread.Sleep(200);
+            descTestBox.SendKeys(EnterDescription);
+            
             Thread.Sleep(200);
 
             //Category
@@ -131,11 +139,8 @@ namespace Mars_Competition_Task.Pages
             Thread.Sleep(200);
 
             //Tags
-            //Wait.WaitToBeClickable("XPath", 10, "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[4]/div[2]/div/div/div/div/input");
-            //while(tagRemovalText.Text != null)
-            //{ 
-            //tagRemoval.Click();
-            //}
+            Wait.WaitToBeClickable("XPath", 10, "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[4]/div[2]/div/div/div/div/input");
+            tagRemoval.Click();
             tags.SendKeys(EnterTag + "\n");
             Thread.Sleep(200);
 
@@ -171,66 +176,221 @@ namespace Mars_Competition_Task.Pages
             }
 
             // Sunday Button
-            if (SsSunday == "Active")
+            if (SsSunday == "Active" && sunday.Selected == false)
             {
+                
                 sunday.Click();
                 sundayST.SendKeys(SsSundayST);
-                sundayST.SendKeys(SsSundayET);
+                sundayET.SendKeys(SsSundayET);
             }
+            else
+            {
+                sunday.Click();
+                Thread.Sleep(500);
+                sundayST.SendKeys(Keys.Delete);
+                sundayST.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                sundayST.SendKeys(Keys.Delete);
+                sundayST.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                sundayST.SendKeys(Keys.Delete);
+                Thread.Sleep(500);
+                sundayET.SendKeys(Keys.Delete);
+                sundayET.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                sundayET.SendKeys(Keys.Delete);
+                sundayET.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                sundayET.SendKeys(Keys.Delete);
+                Thread.Sleep(500);
+            }
+            
+            
 
             // Monday Button
-            if (SsMonday == "Active")
+            if (SsMonday == "Active" && monday.Selected == false)
             {
                 monday.Click();
                 mondayST.SendKeys(SsMondayST);
                 mondayET.SendKeys(SsMondayET);
 
             }
+            else
+            {
+                monday.Click();
+                Thread.Sleep(500);
+                mondayST.SendKeys(Keys.Delete);
+                mondayST.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                mondayST.SendKeys(Keys.Delete);
+                mondayST.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                mondayST.SendKeys(Keys.Delete);
+                Thread.Sleep(500);
+                mondayET.SendKeys(Keys.Delete);
+                mondayET.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                mondayET.SendKeys(Keys.Delete);
+                mondayET.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                mondayET.SendKeys(Keys.Delete);
+                Thread.Sleep(500);
+            }
 
             // Tuesday Button
-            if (SsTuesday == "Active")
+            if (SsTuesday == "Active" && tuesday.Selected == false)
             {
                 tuesday.Click();
                 tuesdayST.SendKeys(SsTuesdayST);
                 tuesdayET.SendKeys(SsTuesdayET);
 
             }
+            else
+            {
+                tuesday.Click();
+                Thread.Sleep(500);
+                tuesdayST.SendKeys(Keys.Delete);
+                tuesdayST.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                tuesdayST.SendKeys(Keys.Delete);
+                tuesdayST.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                tuesdayST.SendKeys(Keys.Delete);
+                Thread.Sleep(500);
+                tuesdayET.SendKeys(Keys.Delete);
+                tuesdayET.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                tuesdayET.SendKeys(Keys.Delete);
+                tuesdayET.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                tuesdayET.SendKeys(Keys.Delete);
+                Thread.Sleep(500);
+            }
+
 
             // Wednesday Button
-            if (SsWednesday == "Active")
+            if (SsWednesday == "Active" && wednesday.Selected == false)
             {
                 wednesday.Click();
                 wednesdayST.SendKeys(SsWednesdayST);
                 wednesdayET.SendKeys(SsWednesdayET);
 
             }
+            else
+            {
+                wednesday.Click();
+                Thread.Sleep(500);
+                wednesdayST.SendKeys(Keys.Delete);
+                wednesdayST.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                wednesdayST.SendKeys(Keys.Delete);
+                wednesdayST.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                wednesdayST.SendKeys(Keys.Delete);
+                Thread.Sleep(500);
+                wednesdayET.SendKeys(Keys.Delete);
+                wednesdayET.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                wednesdayET.SendKeys(Keys.Delete);
+                wednesdayET.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                wednesdayET.SendKeys(Keys.Delete);
+                Thread.Sleep(500);
+            }
+
 
             // Thursday Button
-            if (SsThursday == "Active")
+            if (SsThursday == "Active" && thursday.Selected == false)
             {
                 thursday.Click();
                 thursdayST.SendKeys(SsThursdayST);
                 thursdayET.SendKeys(SsThursdayET);
 
             }
+            else
+            {
+                thursday.Click();
+                Thread.Sleep(500);
+                thursdayST.SendKeys(Keys.Delete);
+                thursdayST.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                thursdayST.SendKeys(Keys.Delete);
+                thursdayST.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                thursdayST.SendKeys(Keys.Delete);
+                Thread.Sleep(500);
+                thursdayET.SendKeys(Keys.Delete);
+                thursdayET.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                thursdayET.SendKeys(Keys.Delete);
+                thursdayET.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                thursdayET.SendKeys(Keys.Delete);
+                Thread.Sleep(500);
+            }
+
 
             // Friday Button
-            if (SsFriday == "Active")
+            if (SsFriday == "Active" && friday.Selected == false)
             {
                 friday.Click();
                 fridayST.SendKeys(SsFridayST);
                 fridayET.SendKeys(SsFridayET);
 
             }
+            else
+            {
+                friday.Click();
+                Thread.Sleep(500);
+                fridayST.SendKeys(Keys.Delete);
+                fridayST.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                fridayST.SendKeys(Keys.Delete);
+                fridayST.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                fridayST.SendKeys(Keys.Delete);
+                Thread.Sleep(500);
+                fridayET.SendKeys(Keys.Delete);
+                fridayET.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                fridayET.SendKeys(Keys.Delete);
+                fridayET.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                fridayET.SendKeys(Keys.Delete);
+                Thread.Sleep(500);
+            }
+
 
             // Saturday Button
-            if (SsSaturday == "Active")
+            if (SsSaturday == "Active" && saturday.Selected == false)
             {
                 saturday.Click();
                 saturdayST.SendKeys(SsSaturdayST);
                 saturdayET.SendKeys(SsSaturdayET);
 
             }
+            else
+            {
+                saturday.Click();
+                Thread.Sleep(500);
+                saturdayST.SendKeys(Keys.Delete);
+                saturdayST.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                saturdayST.SendKeys(Keys.Delete);
+                saturdayST.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                saturdayST.SendKeys(Keys.Delete);
+                Thread.Sleep(500);
+                saturdayET.SendKeys(Keys.Delete);
+                saturdayET.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                saturdayET.SendKeys(Keys.Delete);
+                saturdayET.SendKeys(Keys.Tab);
+                Thread.Sleep(500);
+                saturdayET.SendKeys(Keys.Delete);
+                Thread.Sleep(500);
+            }
+
             Thread.Sleep(200);
             //Wait.WaitToBeClickable(driver, "XPath", 5, "//div[5]//div[2]//div[1]//div[2]//div[1]//input[1]");
             sTradeTypeRB.Click();
@@ -247,15 +407,8 @@ namespace Mars_Competition_Task.Pages
                 credit.Click();
                 credit.SendKeys(SsCredit);
             }
-            
-            
-           
-            //////Skill Exchange
-            //Wait.WaitToBeClickable("XPath", 10, "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[8]/div[4]/div/div/div/div/div/input");
-            //Thread.Sleep(3000);
-            //sExchTypeRB.SendKeys(EnterSkillExchange + "\n");
-           
-            Thread.Sleep(3000);
+                                
+            Thread.Sleep(300);
             //Work Samples
             // Identify the Work Samples and click the plus button to upload photo
             //  Max file size is 2 MB and supported file types are gif / jpeg / png / jpg / doc(x) / pdf / txt / xls(x
@@ -269,17 +422,55 @@ namespace Mars_Competition_Task.Pages
             autoIt.Send(EnterWorkSamplesLink);
             Thread.Sleep(500);
             autoIt.Send("{ENTER}");
-            Thread.Sleep(2000);
+            Thread.Sleep(200);
+
+            //Active/Deactive
+            if(Active=="Active")
+            {
+                sSIsActive.Click();
+            }
+            else
+            {
+                sSIsHidden.Click();
+            }
             
             //SaveButton
             Wait.WaitToBeClickable("XPath", 10, "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[11]/div/input[1]");
             saveB.Click();
         }
-        public void DeleteShareSkill()
+        public void DeleateListing()
         {
             Wait.WaitToBeClickable("XPath", 5, "//*[@id=\"listing-management-section\"]/div[2]/div[1]/div[1]/table/tbody/tr[1]/td[8]/div/button[3]/i");
             xDelete.Click();
+            Thread.Sleep(200);
+            acceptOrDecline.Click();
         }
-       
+        public void EditSkillAssertion(String EnterTitle,
+                                       String EnterDescription,
+                                       string EnterCategory,
+                                       string EnterServiceType)
+        {
+
+            Thread.Sleep(1000);
+            Assert.That(titleText.Text == EnterTitle, " Title match unsuccessful");
+            Thread.Sleep(1000);
+            Assert.That(descriptionText.Text == EnterDescription, "Description match unsuccessful");
+            Thread.Sleep(2000);
+            Assert.That(categoryText.Text == EnterCategory, "Category match unsuccessful");
+            Thread.Sleep(1000);
+            
+            Assert.That(serviceTypeText.Text == EnterServiceType, "Service Type match unsuccessful");
+
+        }
+        public void DeleteSkillAssertion(String EnterTitle)
+        {
+            
+            Thread.Sleep(1500);
+            Console.WriteLine(titleText.Text);
+            Console.WriteLine(EnterTitle);
+            Assert.That(titleText.Text != EnterTitle, " Deletion successful");
+
+        }
+
     }
 }

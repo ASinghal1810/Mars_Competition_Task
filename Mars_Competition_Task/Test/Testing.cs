@@ -20,23 +20,21 @@ namespace Mars_Competition_Task.Test
     [TestFixture]
     [Parallelizable]
     
-    public class ShareSkillTest : MarsDriver
+    public class Testing : MarsDriver
     {
            
         LoginPage loginPageObj;
         HomePage homePageObj;
         ShareSkillPage shareSkillPageObj;
+        ManageListingPage manageListingPageObj;
 
-        
-
-
-        public ShareSkillTest()
+        public Testing()
         {
            loginPageObj = new LoginPage();
             homePageObj = new HomePage();
             shareSkillPageObj = new ShareSkillPage();
+            manageListingPageObj = new ManageListingPage();
 
-            
         }
         
 
@@ -51,7 +49,6 @@ namespace Mars_Competition_Task.Test
             loginPageObj.SignInFunction(ExcelLib.ReadData(1, "Username"), 
                                         ExcelLib.ReadData(1, "Password"));
             
-
             //Go To Share Skill Entry Form
             homePageObj.ShareSkillButton();          
 
@@ -95,9 +92,9 @@ namespace Mars_Competition_Task.Test
                                                             ExcelLib.ReadData(1, "Active"));
 
             //Checking
-            Thread.Sleep(2000);
+            Thread.Sleep(200);
             homePageObj.ManageListingTbButton();
-            Thread.Sleep(2000);
+            Thread.Sleep(200);
             ExcelLib.PopulateInCollection(@"C:\Users\ankur\Desktop\Mars_Competition_Task\Mars_Competition_Task\Mars_Competition_Task\Spreadsheets\Share Skill Test Data.xlsx", "ShareSkill");
             //Pass Parameters String EnterTitle,String EnterDescription, string EnterCategory, string EnterSubCategory, string EnterTag, string EnterSkillExchange, string EnterWorkSamplesLink
             shareSkillPageObj.ShareSkillTest1AdditionAssertion(ExcelLib.ReadData(1, "Title"), 
@@ -124,9 +121,71 @@ namespace Mars_Competition_Task.Test
             //Fill in all fields in Share Skill Form and Save
             ExcelLib.PopulateInCollection(@"C:\Users\ankur\Desktop\Mars_Competition_Task\Mars_Competition_Task\Mars_Competition_Task\Spreadsheets\Share Skill Test Data.xlsx", "ShareSkill");
             //Pass Parameters String EnterTitle,String EnterDescription, string EnterCategory, string EnterSubCategory, string EnterTag, string EnterSkillExchange, string EnterWorkSamplesLink
-            shareSkillPageObj.ShareSkillTest1AdditionCancel(ExcelLib.ReadData(1, "Title"),
+            shareSkillPageObj.ShareSkillTest1AdditionCancel(ExcelLib.ReadData(2, "Title"),
+                                                            ExcelLib.ReadData(2, "Description"),
+                                                            ExcelLib.ReadData(2, "Category"),   
+                                                            ExcelLib.ReadData(2, "SubCategory"),
+                                                            ExcelLib.ReadData(2, "Tag"),
+                                                            ExcelLib.ReadData(2, "ServiceType"),
+                                                            ExcelLib.ReadData(1, "LocationType"),
+                                                            ExcelLib.ReadData(2, "StartDate"),
+                                                            ExcelLib.ReadData(2, "EndDate"),
+                                                            ExcelLib.ReadData(2, "Sunday"),
+                                                            ExcelLib.ReadData(2, "SundayStartTime"),
+                                                            ExcelLib.ReadData(2, "SundayEndTime"),
+                                                            ExcelLib.ReadData(2, "Monday"),
+                                                            ExcelLib.ReadData(2, "MondayStartTime"),
+                                                            ExcelLib.ReadData(2, "MondayEndTime"),
+                                                            ExcelLib.ReadData(2, "Tuesday"),
+                                                            ExcelLib.ReadData(2, "TuesdayStartTime"),
+                                                            ExcelLib.ReadData(2, "TuesdayEndTime"),
+                                                            ExcelLib.ReadData(2, "Wednesday"),
+                                                            ExcelLib.ReadData(2, "WednesdayStartTime"),
+                                                            ExcelLib.ReadData(2, "WednesdayEndTime"),
+                                                            ExcelLib.ReadData(2, "Thursday"),
+                                                            ExcelLib.ReadData(2, "ThursdayStartTime"),
+                                                            ExcelLib.ReadData(2, "ThursdayEndTime"),
+                                                            ExcelLib.ReadData(2, "Friday"),
+                                                            ExcelLib.ReadData(2, "FridayStartTime"),
+                                                            ExcelLib.ReadData(2, "FridayEndTime"),
+                                                            ExcelLib.ReadData(2, "Saturday"),
+                                                            ExcelLib.ReadData(2, "SaturdayStartTime"),
+                                                            ExcelLib.ReadData(2, "SaturdayEndTime"),
+                                                            ExcelLib.ReadData(2, "Skill Trade"),
+                                                            ExcelLib.ReadData(2, "Skill-Exchange"),
+                                                            ExcelLib.ReadData(2, "Credit"),
+                                                            ExcelLib.ReadData(2, "WorkSamples"),
+                                                            ExcelLib.ReadData(2, "Active"));
+            Thread.Sleep(2000);
+            //Go To Share Skill Entry Form
+            homePageObj.ManageListingTbButton();
+            //Fill in all fields in Share Skill Form and Save
+            ExcelLib.PopulateInCollection(@"C:\Users\ankur\Desktop\Mars_Competition_Task\Mars_Competition_Task\Mars_Competition_Task\Spreadsheets\Share Skill Test Data.xlsx", "ShareSkill");
+            Thread.Sleep(200);
+            shareSkillPageObj.ShareSkillTest2CancelOperationAssertion(ExcelLib.ReadData(2, "Title"));
+
+        }
+
+        [Test, Order(3)]
+        public void ShareSkillEdit()
+        {
+
+            //Extent Report Start
+            ExtentReporting.LogInfo("Share Skills Addition Cancel");
+
+            // Login to Mars Portal
+            ExcelLib.PopulateInCollection(@"C:\Users\ankur\Desktop\Mars_Competition_Task\Mars_Competition_Task\Mars_Competition_Task\Spreadsheets\Test Data.xlsx", "Login");
+            loginPageObj.SignInFunction(ExcelLib.ReadData(1, "Username"),
+                                        ExcelLib.ReadData(1, "Password"));
+
+            //Go To Share Skill Entry Form
+            homePageObj.ManageListingTbButton();
+            //Fill in all fields in Share Skill Form and Save
+            ExcelLib.PopulateInCollection(@"C:\Users\ankur\Desktop\Mars_Competition_Task\Mars_Competition_Task\Mars_Competition_Task\Spreadsheets\Manage Lsiting Test Data.xlsx", "ShareSkill");
+            //Pass Parameters String EnterTitle,String EnterDescription, string EnterCategory, string EnterSubCategory, string EnterTag, string EnterSkillExchange, string EnterWorkSamplesLink
+            manageListingPageObj.UpdateShareSkill(ExcelLib.ReadData(1, "Title"),
                                                             ExcelLib.ReadData(1, "Description"),
-                                                            ExcelLib.ReadData(1, "Category"),   
+                                                            ExcelLib.ReadData(1, "Category"),
                                                             ExcelLib.ReadData(1, "SubCategory"),
                                                             ExcelLib.ReadData(1, "Tag"),
                                                             ExcelLib.ReadData(1, "ServiceType"),
@@ -160,8 +219,36 @@ namespace Mars_Competition_Task.Test
                                                             ExcelLib.ReadData(1, "WorkSamples"),
                                                             ExcelLib.ReadData(1, "Active"));
 
+            //Go To Share Skill Entry Form
+            homePageObj.ManageListingTbButton();
+            //Fill in all fields in Share Skill Form and Save
+            ExcelLib.PopulateInCollection(@"C:\Users\ankur\Desktop\Mars_Competition_Task\Mars_Competition_Task\Mars_Competition_Task\Spreadsheets\Manage Lsiting Test Data.xlsx", "ShareSkill");
+            manageListingPageObj.EditSkillAssertion(ExcelLib.ReadData(1, "Title"),
+                                                            ExcelLib.ReadData(1, "Description"),
+                                                            ExcelLib.ReadData(1, "CategoryDescription"),
+                                                            ExcelLib.ReadData(1, "ServiceType"));
+        
         }
 
+        [Test, Order(4)]
+        public void ShareSkillDelete()
+        {
+            //Extent Report Start
+            ExtentReporting.LogInfo("Share Skills Addition Cancel");
+
+            // Login to Mars Portal
+            ExcelLib.PopulateInCollection(@"C:\Users\ankur\Desktop\Mars_Competition_Task\Mars_Competition_Task\Mars_Competition_Task\Spreadsheets\Test Data.xlsx", "Login");
+            loginPageObj.SignInFunction(ExcelLib.ReadData(1, "Username"),
+                                        ExcelLib.ReadData(1, "Password"));
+
+            //Go To Share Skill Entry Form
+            homePageObj.ManageListingTbButton();
+            //Fill in all fields in Share Skill Form and Save
+            ExcelLib.PopulateInCollection(@"C:\Users\ankur\Desktop\Mars_Competition_Task\Mars_Competition_Task\Mars_Competition_Task\Spreadsheets\Manage Lsiting Test Data.xlsx", "ShareSkill");
+            //Pass Parameters String EnterTitle,String EnterDescription, string EnterCategory, string EnterSubCategory, string EnterTag, string EnterSkillExchange, string EnterWorkSamplesLink
+            manageListingPageObj.DeleateListing();
+            manageListingPageObj.DeleteSkillAssertion(ExcelLib.ReadData(1, "Title"));
+        }
 
 
     }

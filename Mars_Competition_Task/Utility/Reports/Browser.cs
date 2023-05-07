@@ -19,6 +19,7 @@ namespace ReportUtils.Reports
 
         public string GetScreenShot()
         {
+            Thread.Sleep(200);
             var file = ((ITakesScreenshot)driver).GetScreenshot();
             var img = file.AsBase64EncodedString;
 
